@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 # 实例化对象
 option = ChromeOptions()
 option.add_experimental_option('excludeSwitches',['enable-automation'])# 开启实验性功能
+# 不关闭窗口
 option.add_experimental_option("detach", True)
 # 去除特征值
 # option.add_argument("--disable-blink-features=AutomationControlled")
@@ -21,7 +22,7 @@ driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
   """
 })
 
-time.sleep(5)
+time.sleep(3)
 driver.get("https://www.hermes.cn/cn/zh/")
 goods=driver.find_elements(By.XPATH,"//*[@id='content']/section[3]/ul/li")
 
