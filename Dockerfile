@@ -16,6 +16,6 @@ ENV FLASK_RUN_PORT 5000
 RUN python -m pip install --upgrade pip -i https://mirrors.bfsu.edu.cn/pypi/web/simple/
 
 COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt -i https://mirrors.bfsu.edu.cn/pypi/web/simple/
 COPY . .
 CMD ["flask", "run"]
