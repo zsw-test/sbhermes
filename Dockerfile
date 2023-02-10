@@ -13,7 +13,7 @@ ENV FLASK_RUN_PORT 5000
 # # install chrome
 # RUN wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 # RUN apt-get install ./google-chrome-stable_current_amd64.deb
-RUN python -m pip install --upgrade pip
+RUN python -m pip install --upgrade pip -i https://mirrors.bfsu.edu.cn/pypi/web/simple/
 
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
