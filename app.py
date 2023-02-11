@@ -5,12 +5,14 @@ from selenium import webdriver
 from selenium.webdriver import ChromeOptions
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import db
 
 app = Flask(__name__)
+DB = db.InitDb()
 
 # 本地环境chrome和driver都在一个环境调试
 @app.route("/local")
-def localDev():
+def fetchGoods():
 # 实例化对象
 	option = ChromeOptions()
 	# 无头模式 linux环境下必须开无头模式，不然启动不了
@@ -34,17 +36,31 @@ def localDev():
 	"""
 	})
 
+	# 清除一下cookie
+	driver.delete_all_cookies
+
 	time.sleep(3)
 	driver.get("https://www.hermes.cn/cn/zh/")
 	goods=driver.find_elements(By.XPATH,"//*[@id='content']/section[3]/ul/li")
 
+	# 浅爬一下首页的几个图片
 	res =[]
 	for good in goods:
 		goodinfo = good.find_element(By.TAG_NAME,"img")
-		res.append(goodinfo.get_attribute('outerHTML'))
-		print(goodinfo.get_attribute('outerHTML'))
+		imageinfo=goodinfo.get_attribute("data-src")
+		
+		# 插入mysql
+		cursor = DB.cursor()
+		sql = 'insert into goods(image) values(%s)'
+		cursor.execute(sql,(imageinfo))
+
+		res.append(imageinfo)
+		print(imageinfo)
+
+
 
 	#driver.close()
+	# 存入数据库
 	return res
 
 
@@ -82,9 +98,9 @@ def sipderhermes():
 
 	res =[]
 	for good in goods:
-		goodinfo = good.find_element(By.TAG_NAME,"img")
-		res.append(goodinfo.get_attribute('outerHTML'))
-		print(goodinfo.get_attribute('outerHTML'))
+		goodinfo = good.get_attribute(By.TAG_NAME,"img")
+		res.append(goodinfo)
+		print(goodinfo)
 		
 	time.sleep(3)
 	driver.close()
@@ -94,3 +110,13 @@ def sipderhermes():
 @app.route("/")
 def hello():
     return "Hello, World!"
+
+@app.route("/goods")
+def getGoods():
+	cursor= DB.cursor()
+	cursor.execute("SELECT * from goods")
+	datas = cursor.fetchall()
+	images=[]
+	for v in datas:
+		images.append(v[1])
+	return images
