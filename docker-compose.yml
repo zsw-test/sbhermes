@@ -7,9 +7,10 @@ services:
      - "5000:5000"
     depends_on:
       - chrome #映射的域名，脚本中要把域名改成这个
-  chrome:
-    # 里面包含chromedriver
-    image: selenium/standalone-chrome:latest
-    ports:
-      - "4444:4444"
-    shm_size: 2g
+  # 如果环境都在dockerfile里就不需要配置remotechrome    
+  # chrome:
+  #   # 里面包含chromedriver
+  #   image: selenium/standalone-chrome:latest
+  #   ports:
+  #     - "4444:4444"
+  #   shm_size: 2g
