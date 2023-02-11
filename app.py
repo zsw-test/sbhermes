@@ -91,6 +91,6 @@ def sipderhermes():
 	return res
 
 
-@app.route("/hello")
+@app.route("/")
 def hello():
     return "Hello, World!"
