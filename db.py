@@ -5,9 +5,9 @@ import pymysql
 
 def InitDbConnection():
     # 打开数据库连接 后期需要写成配置
-    db = pymysql.connect(host='localhost',
+    db = pymysql.connect(host='124.222.188.78',
                         user='root',
-                        password='124.222.188.78',
+                        password='123456',
                         database='sbhermes',
                         autocommit=True,
                         )
