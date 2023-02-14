@@ -7,7 +7,7 @@ def InitDbConnection():
     # 打开数据库连接 后期需要写成配置
     db = pymysql.connect(host='localhost',
                         user='root',
-                        password='123456',
+                        password='124.222.188.78',
                         database='sbhermes',
                         autocommit=True,
                         )
