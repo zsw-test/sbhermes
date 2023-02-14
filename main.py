@@ -80,5 +80,5 @@ def getGoods():
 # 主函数入口
 if __name__ == '__main__':
 	db.InitDbConnection()
-	Flask.run(app)
+	app.run(host="0.0.0.0", port=5000,debug=True)
     
