@@ -23,4 +23,4 @@ RUN python -m pip install --upgrade pip -i https://mirrors.bfsu.edu.cn/pypi/web/
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt -i https://mirrors.bfsu.edu.cn/pypi/web/simple/
 COPY . .
-CMD ["flask", "run"]
+CMD ["python3", "main.py"]
